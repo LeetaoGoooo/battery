@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0E423CD02A88BA340081FA72 /* BatteryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423CCF2A88BA340081FA72 /* BatteryApp.swift */; };
-		0E423CD22A88BA350081FA72 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423CD12A88BA350081FA72 /* ContentView.swift */; };
 		0E423CD42A88BA360081FA72 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E423CD32A88BA360081FA72 /* Assets.xcassets */; };
 		0E423CD72A88BA360081FA72 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E423CD62A88BA360081FA72 /* Preview Assets.xcassets */; };
 		0E423CE42A88BBA20081FA72 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423CE32A88BBA20081FA72 /* Api.swift */; };
@@ -17,6 +16,10 @@
 		0E423D0A2A88C8D50081FA72 /* smc in Resources */ = {isa = PBXBuildFile; fileRef = 0E423D082A88C8BC0081FA72 /* smc */; };
 		0E423D112A8A2C5E0081FA72 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D102A8A2C5E0081FA72 /* AppMenu.swift */; };
 		0E423D122A8A2C5E0081FA72 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D102A8A2C5E0081FA72 /* AppMenu.swift */; };
+		0E423D362A8C79F10081FA72 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D352A8C79F10081FA72 /* BatteryInfo.swift */; };
+		0E423D372A8C79F10081FA72 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D352A8C79F10081FA72 /* BatteryInfo.swift */; };
+		0E423D3A2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */; };
+		0E423D3B2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +35,6 @@
 /* Begin PBXFileReference section */
 		0E423CCC2A88BA340081FA72 /* Battery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Battery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E423CCF2A88BA340081FA72 /* BatteryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryApp.swift; sourceTree = "<group>"; };
-		0E423CD12A88BA350081FA72 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		0E423CD32A88BA360081FA72 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0E423CD62A88BA360081FA72 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		0E423CD82A88BA360081FA72 /* Battery.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Battery.entitlements; sourceTree = "<group>"; };
@@ -41,6 +43,8 @@
 		0E423CED2A88BE610081FA72 /* BatteryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTests.swift; sourceTree = "<group>"; };
 		0E423D082A88C8BC0081FA72 /* smc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = smc; sourceTree = "<group>"; };
 		0E423D102A8A2C5E0081FA72 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
+		0E423D352A8C79F10081FA72 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
+		0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +87,9 @@
 		0E423CCE2A88BA340081FA72 /* Battery */ = {
 			isa = PBXGroup;
 			children = (
+				0E423D382A8C7A060081FA72 /* ViewModel */,
 				0E423D0F2A8A2C480081FA72 /* Views */,
 				0E423CCF2A88BA340081FA72 /* BatteryApp.swift */,
-				0E423CD12A88BA350081FA72 /* ContentView.swift */,
 				0E423CD32A88BA360081FA72 /* Assets.xcassets */,
 				0E423CD82A88BA360081FA72 /* Battery.entitlements */,
 				0E423CD52A88BA360081FA72 /* Preview Content */,
@@ -114,8 +118,17 @@
 			isa = PBXGroup;
 			children = (
 				0E423D102A8A2C5E0081FA72 /* AppMenu.swift */,
+				0E423D352A8C79F10081FA72 /* BatteryInfo.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		0E423D382A8C7A060081FA72 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -220,10 +233,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E423CD22A88BA350081FA72 /* ContentView.swift in Sources */,
 				0E423CE42A88BBA20081FA72 /* Api.swift in Sources */,
+				0E423D3A2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */,
 				0E423D112A8A2C5E0081FA72 /* AppMenu.swift in Sources */,
 				0E423CD02A88BA340081FA72 /* BatteryApp.swift in Sources */,
+				0E423D362A8C79F10081FA72 /* BatteryInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,8 +245,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E423D3B2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */,
 				0E423D122A8A2C5E0081FA72 /* AppMenu.swift in Sources */,
 				0E423CEE2A88BE610081FA72 /* BatteryTests.swift in Sources */,
+				0E423D372A8C79F10081FA72 /* BatteryInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -92,31 +92,20 @@ class Api {
         return output == "0"
     }
     
-    func get_battery_percentage() throws -> String {
-       let batteryTask = Process()
+    static func get_battery_info() throws -> String {
+        let batteryTask = Process()
         batteryTask.launchPath = "/usr/bin/pmset"
-        batteryTask.arguments = ["-g","batt","|","tail","-n1","|","awk","'{print $3}'","|","sed","s:\\%\\;::"]
-        try batteryTask.run()
+        batteryTask.arguments = ["-g","batt"]
         let batteryPipe = Pipe()
         batteryTask.standardOutput = batteryPipe
         batteryTask.standardError = batteryPipe
+        try batteryTask.run()
         let data = batteryPipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data:data, encoding: .utf8)
-        return output!
+        if (output != nil) {
+            return output!
+        }
+        return "Try to restart App"
     }
-    
-    func get_remaining_time() throws -> String {
-        let batteryTask = Process()
-         batteryTask.launchPath = "/usr/bin/pmset"
-         batteryTask.arguments = ["-g","batt","|","tail","-n1","|","awk","'{print $5}'"]
-         try batteryTask.run()
-         let batteryPipe = Pipe()
-         batteryTask.standardOutput = batteryPipe
-         batteryTask.standardError = batteryPipe
-         let data = batteryPipe.fileHandleForReading.readDataToEndOfFile()
-         let output = String(data:data, encoding: .utf8)
-         return output!
-    }
-    
     
 }
