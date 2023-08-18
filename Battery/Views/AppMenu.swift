@@ -32,7 +32,7 @@ struct AppMenu: View {
             Text( is_limiter_enabled ? "✓ Enable 80% battery limit":"Enable 80% battery limit")
         }.keyboardShortcut("E")
         Button(){
-            enable_battery_limit()
+            disable_battery_limit()
         }label: {
             Text( !is_limiter_enabled ? "✓ Disable 80% battery limit":"Disable 80% battery limit")
         }.keyboardShortcut("D")

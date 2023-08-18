@@ -40,7 +40,7 @@ class BatteryViewModel: ObservableObject {
         } else {
             supply = "AC Power"
         }
-        if (info.contains("true")) {
+        if (info.contains("not charging present: true")) {
             charging = false
         } else {
             charging = true

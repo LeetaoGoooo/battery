@@ -28,11 +28,11 @@ class Api {
         logger.info("Executing \(args)")
         let task = Process()
         if (onlyBash) {
-            task.environment = ["HOME":home]
+            task.environment = ["HOME":home, "PATH":"/usr/local/bin", "USER":user]
             task.launchPath = "/usr/bin/env"
             task.arguments = args
         } else {
-            task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew","HOME":home]
+            task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew","HOME":home, "USER":user]
             task.launchPath = "/usr/bin/env"
             task.arguments = args
         }
@@ -142,7 +142,7 @@ class Api {
         let task = Process()
         task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew"]
         task.launchPath = "/usr/bin/env"
-        task.arguments = ["battery","status"]
+        task.arguments = ["/usr/local/bin/battery","status"]
         let pipe = Pipe()
         task.standardOutput = pipe
         task.launch()
@@ -151,10 +151,11 @@ class Api {
         let data =  pipe.fileHandleForReading.readDataToEndOfFile()
         let output = String(data: data, encoding: .utf8)
         if (output != nil) {
+            print("is_limiter_enabled:\(output!)")
             if (output!.isEmpty) {
                 return false
             }
-            return !output!.contains("being maintained")
+            return output!.contains("smc charging disabled")
         }
         return false
     }
