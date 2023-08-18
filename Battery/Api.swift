@@ -138,24 +138,27 @@ class Api {
         return "Try to restart App"
     }
     
-    static func is_limiter_enabled() -> Bool {
+    func is_limiter_enabled() -> Bool {
         let task = Process()
-        task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew"]
-        task.launchPath = "/usr/bin/env"
-        task.arguments = ["/usr/local/bin/battery","status"]
+        task.environment = ["HOME":home,"USER":user]
+        task.launchPath = "/usr/local/bin/battery"
+        task.arguments = ["status"]
         let pipe = Pipe()
         task.standardOutput = pipe
-        task.launch()
-        task.waitUntilExit()
- 
-        let data =  pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data: data, encoding: .utf8)
-        if (output != nil) {
-            print("is_limiter_enabled:\(output!)")
-            if (output!.isEmpty) {
-                return false
+        do {
+            try task.run()
+            let data =  pipe.fileHandleForReading.readDataToEndOfFile()
+            let output = String(data: data, encoding: .utf8)
+            logger.info("output:\(output!)")
+            if (output != nil) {
+                if (output!.isEmpty) {
+                    return false
+                }
+                return output!.contains("smc charging disabled")
             }
-            return output!.contains("smc charging disabled")
+            
+        } catch {
+            return false
         }
         return false
     }

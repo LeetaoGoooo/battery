@@ -25,7 +25,7 @@ class BatteryViewModel: ObservableObject {
         do {
             let info = try Api.get_battery_info()
             config_battery_view(info:info)
-            is_limiter_enabled = Api.is_limiter_enabled()
+            is_limiter_enabled = api.is_limiter_enabled()
             errorRaise = false
         } catch {
             errorRaise = true
