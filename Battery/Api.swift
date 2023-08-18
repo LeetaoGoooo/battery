@@ -5,92 +5,122 @@
 //  Created by leetao on 2023/8/13.
 //
 import Foundation
-
+import os
+import Reachability
+import AppKit
 
 
 class Api {
-    let resourceName = "smc"
-    let task = Process()
-    let pipe = Pipe()
     
+    let logger = Logger()
+    let reachability = try! Reachability()
+    let user:String
+    let home:String
+    
+    func showAlert(title:String, msg:String) {
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = msg
+        alert.runModal()
+    }
+    
+    func exec_command_without_sudo(_ args: String..., onlyBash:Bool = false) -> String? {
+        logger.info("Executing \(args)")
+        let task = Process()
+        if (onlyBash) {
+            task.environment = ["HOME":home]
+            task.launchPath = "/usr/bin/env"
+            task.arguments = args
+        } else {
+            task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew","HOME":home]
+            task.launchPath = "/usr/bin/env"
+            task.arguments = args
+        }
+       
+        
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        do {
+            try task.run()
+            
+            let data =  pipe.fileHandleForReading.readDataToEndOfFile()
+            let output = String(data: data, encoding: .utf8)
+            
+            if (output != nil) {
+                if (output!.isEmpty) {
+                    return nil
+                }
+                logger.info("output:\(output!)")
+                return output!
+            }
+            
+        } catch {
+            return nil
+        }
+        return nil
+    }
+    
+    func exec_sudo_command(command:String) -> Bool{
+        logger.info("Executing  \(command)")
+        logger.info("do shell script \"\(command)\" with administrator privileges")
+        let process = Process()
+        process.launchPath = "/usr/bin/osascript"
+        process.arguments = ["-e", "do shell script \"\(command)\" with administrator privileges"]
+        process.launch()
+        process.waitUntilExit()
+        let battery_installed = exec_command_without_sudo("which", "battery")?.contains("not found") ?? false
+        let smc_installed = exec_command_without_sudo("which","smc")?.contains("not found") ?? false
+        return battery_installed && smc_installed
+    }
     
     init() {
-        if let resourcePath = Bundle.main.path(forResource: resourceName, ofType:  nil) {
-            task.launchPath = resourcePath
-            task.standardOutput = pipe
-            task.standardError = pipe
-        } else {
-            print("not found resourcePath")
-        }
-     
-    }
-
-
-    // root
-    func enable_discharging() -> Bool {
-        task.arguments = ["-k", "CH0I", "-w", "01"]
-        do {
-            try task.run()
-        } catch {
-            return false
-        }
-        return true
+        user = ProcessInfo.processInfo.environment["USER"]!
+        home = ProcessInfo.processInfo.environment["HOME"]!
+        init_battery()
     }
     
-    // root
-    func disable_discharging() -> Bool {
-        task.arguments = ["-k", "CH0I", "-w", "00"]
-        do {
-            try task.run()
-        } catch {
-            return false
-        }
-        return true
-    }
-    
-    
-    // root
-    func enable_charging() -> Bool {
-        task.arguments = ["-k", "CH0B", "-w", "00"]
-        do {
-            try task.run()
-            task.arguments = ["-k", "CH0C", "-w", "00"]
-            try task.run()
-            return self.disable_discharging()
-        } catch {
-            return false
-        }
-    }
-    
-    // root
-    func disable_charging() -> Bool {
-        task.arguments = ["-k", "CH0B", "-w", "02"]
-        do {
-            try task.run()
-            task.arguments = ["-k", "CH0C", "-w", "02"]
-            try task.run()
-        } catch {
-            return false
-        }
-        return true
-    }
-    
-    func get_sms_charging_status() throws -> Bool {
-        task.arguments =  ["-k", "CH0B", "-r", "|", "awk", "'{print $4}'", "|", "sed", "s:\\)::"]
-        try task.run()
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data:data, encoding: .utf8)
-        return output == "00"
+    func init_battery() {
+        let battery_installed = exec_command_without_sudo("which", "battery")?.contains("battery") ?? false
+        let smc_installed = exec_command_without_sudo("which","smc")?.contains("smc") ?? false
         
+        let charging_in_visudo = exec_command_without_sudo("sudo","-n","/usr/local/bin/smc", "-k", "CH0C", "-r")?.contains("CH0C") ?? false
+        let discharging_in_visudo = exec_command_without_sudo("sudo","-n","/usr/local/bin/smc", "-k","CH0I", "-r")?.contains("CH0I") ?? false
+        let visudo_complete = charging_in_visudo && discharging_in_visudo
+        let is_installed = battery_installed && smc_installed
+    
+        logger.info("Is installed? \(is_installed) visudo_complete: \(visudo_complete) ")
+        
+         _ = exec_command_without_sudo("pkill", "-f","/usr/local/bin/battery.*")
+    
+        
+        if (!is_installed || !visudo_complete) {
+            logger.info(" Installing battery for USER")
+            if (reachability.connection == .unavailable) {
+                showAlert(title: "Warning", msg:"You Lost NetWork!")
+                return
+            } else {
+                let result = exec_sudo_command(command: "curl -s https://raw.githubusercontent.com/actuallymentor/battery/main/setup.sh | bash -s -- \(user)")
+                logger.info("Install Result: \(result)")
+                if (result) {
+                    showAlert(title: "Info", msg: "Battery background components installed successfully. You can find the battery limiter icon in the top right of your menu bar")
+                } else {
+                    showAlert(title: "Warning", msg: "Battery background components installed failed. You can excute this command `curl -s https://raw.githubusercontent.com/actuallymentor/battery/main/setup.sh | bash -s -- \(user)` on shell by yourself")
+                }
+      
+            }
+        }
+        _ = exec_command_without_sudo("/usr/local/bin/battery","maintain","recover",onlyBash: true)
     }
     
-    func get_smc_discharging_status() throws -> Bool {
-        task.arguments =  ["-k", "CH0I", "-r", "|", "awk", "'{print $4}'", "|", "sed", "s:\\)::"]
-        try task.run()
-        let data = pipe.fileHandleForReading.readDataToEndOfFile()
-        let output = String(data:data, encoding: .utf8)
-        return output == "0"
+    func enable_battery_limiter() {
+        let _ = exec_command_without_sudo("/usr/local/bin/battery","maintain", "80",onlyBash: true)
     }
+    
+
+    func disable_battery_limiter() {
+        let _ =   exec_command_without_sudo("/usr/local/bin/battery","maintain", "stop",onlyBash: true)
+    }
+
     
     static func get_battery_info() throws -> String {
         let batteryTask = Process()
@@ -106,6 +136,27 @@ class Api {
             return output!
         }
         return "Try to restart App"
+    }
+    
+    static func is_limiter_enabled() -> Bool {
+        let task = Process()
+        task.environment = ["PATH":"/bin:/usr/bin:/usr/local/bin:/usr/sbin:/opt/homebrew"]
+        task.launchPath = "/usr/bin/env"
+        task.arguments = ["battery","status"]
+        let pipe = Pipe()
+        task.standardOutput = pipe
+        task.launch()
+        task.waitUntilExit()
+ 
+        let data =  pipe.fileHandleForReading.readDataToEndOfFile()
+        let output = String(data: data, encoding: .utf8)
+        if (output != nil) {
+            if (output!.isEmpty) {
+                return false
+            }
+            return !output!.contains("being maintained")
+        }
+        return false
     }
     
 }

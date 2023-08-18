@@ -12,14 +12,11 @@
 		0E423CD72A88BA360081FA72 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E423CD62A88BA360081FA72 /* Preview Assets.xcassets */; };
 		0E423CE42A88BBA20081FA72 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423CE32A88BBA20081FA72 /* Api.swift */; };
 		0E423CEE2A88BE610081FA72 /* BatteryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423CED2A88BE610081FA72 /* BatteryTests.swift */; };
-		0E423D092A88C8BC0081FA72 /* smc in Resources */ = {isa = PBXBuildFile; fileRef = 0E423D082A88C8BC0081FA72 /* smc */; };
-		0E423D0A2A88C8D50081FA72 /* smc in Resources */ = {isa = PBXBuildFile; fileRef = 0E423D082A88C8BC0081FA72 /* smc */; };
 		0E423D112A8A2C5E0081FA72 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D102A8A2C5E0081FA72 /* AppMenu.swift */; };
 		0E423D122A8A2C5E0081FA72 /* AppMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D102A8A2C5E0081FA72 /* AppMenu.swift */; };
-		0E423D362A8C79F10081FA72 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D352A8C79F10081FA72 /* BatteryInfo.swift */; };
-		0E423D372A8C79F10081FA72 /* BatteryInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D352A8C79F10081FA72 /* BatteryInfo.swift */; };
 		0E423D3A2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */; };
 		0E423D3B2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */; };
+		0E423D3E2A8CD4EB0081FA72 /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 0E423D3D2A8CD4EB0081FA72 /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,9 +38,7 @@
 		0E423CE32A88BBA20081FA72 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		0E423CEB2A88BE610081FA72 /* BatteryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BatteryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E423CED2A88BE610081FA72 /* BatteryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryTests.swift; sourceTree = "<group>"; };
-		0E423D082A88C8BC0081FA72 /* smc */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = smc; sourceTree = "<group>"; };
 		0E423D102A8A2C5E0081FA72 /* AppMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppMenu.swift; sourceTree = "<group>"; };
-		0E423D352A8C79F10081FA72 /* BatteryInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryInfo.swift; sourceTree = "<group>"; };
 		0E423D392A8C7A220081FA72 /* BatteryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E423D3E2A8CD4EB0081FA72 /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +64,6 @@
 		0E423CC32A88BA340081FA72 = {
 			isa = PBXGroup;
 			children = (
-				0E423D082A88C8BC0081FA72 /* smc */,
 				0E423CCE2A88BA340081FA72 /* Battery */,
 				0E423CEC2A88BE610081FA72 /* BatteryTests */,
 				0E423CCD2A88BA340081FA72 /* Products */,
@@ -118,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				0E423D102A8A2C5E0081FA72 /* AppMenu.swift */,
-				0E423D352A8C79F10081FA72 /* BatteryInfo.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -147,6 +141,9 @@
 			dependencies = (
 			);
 			name = Battery;
+			packageProductDependencies = (
+				0E423D3D2A8CD4EB0081FA72 /* Reachability */,
+			);
 			productName = Battery;
 			productReference = 0E423CCC2A88BA340081FA72 /* Battery.app */;
 			productType = "com.apple.product-type.application";
@@ -197,6 +194,9 @@
 				Base,
 			);
 			mainGroup = 0E423CC32A88BA340081FA72;
+			packageReferences = (
+				0E423D3C2A8CD4EB0081FA72 /* XCRemoteSwiftPackageReference "Reachability" */,
+			);
 			productRefGroup = 0E423CCD2A88BA340081FA72 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -212,7 +212,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E423D092A88C8BC0081FA72 /* smc in Resources */,
 				0E423CD72A88BA360081FA72 /* Preview Assets.xcassets in Resources */,
 				0E423CD42A88BA360081FA72 /* Assets.xcassets in Resources */,
 			);
@@ -222,7 +221,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E423D0A2A88C8D50081FA72 /* smc in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,7 +235,6 @@
 				0E423D3A2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */,
 				0E423D112A8A2C5E0081FA72 /* AppMenu.swift in Sources */,
 				0E423CD02A88BA340081FA72 /* BatteryApp.swift in Sources */,
-				0E423D362A8C79F10081FA72 /* BatteryInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,7 +245,6 @@
 				0E423D3B2A8C7A220081FA72 /* BatteryViewModel.swift in Sources */,
 				0E423D122A8A2C5E0081FA72 /* AppMenu.swift in Sources */,
 				0E423CEE2A88BE610081FA72 /* BatteryTests.swift in Sources */,
-				0E423D372A8C79F10081FA72 /* BatteryInfo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +309,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -379,8 +376,9 @@
 		0E423CDC2A88BA360081FA72 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = battery;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Battery/Battery.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -391,13 +389,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = v;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.leetao94.cn.Battery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duck.leetao.battery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -408,7 +408,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"ASSETCATALOG_COMPILER_APPICON_NAME[sdk=macosx*]" = battery;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = Battery/Battery.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -419,13 +421,15 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_UILaunchStoryboardName = v;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.leetao94.cn.Battery;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duck.leetao.battery;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -440,8 +444,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H6F75GR6PJ;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.leetao94.cn.BatteryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duck.leetao.batteryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -457,8 +462,9 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = H6F75GR6PJ;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSFileProviderDomainUsageDescription = "";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.gmail.leetao94.cn.BatteryTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.duck.leetao.batteryTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -497,6 +503,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0E423D3C2A8CD4EB0081FA72 /* XCRemoteSwiftPackageReference "Reachability" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0E423D3D2A8CD4EB0081FA72 /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0E423D3C2A8CD4EB0081FA72 /* XCRemoteSwiftPackageReference "Reachability" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 0E423CC42A88BA340081FA72 /* Project object */;
 }

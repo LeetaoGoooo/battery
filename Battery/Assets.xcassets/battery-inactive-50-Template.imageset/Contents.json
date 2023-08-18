@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "battery-inactive-50-Template.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "battery-inactive-50-Template@2x.png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "battery-inactive-50-Template@3x.png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

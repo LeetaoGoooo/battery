@@ -10,46 +10,46 @@ import SwiftUI
 
 struct AppMenu: View {
     @State private var selected = false
-    @ObservedObject private var viewModel:BatteryViewModel
+    @Binding var electricity: String
+    @Binding var supply: String
+    @Binding var charging: Bool
+    @Binding var errorRaise: Bool
+    @Binding var errorMsg: String
+    @Binding var is_limiter_enabled: Bool
+    var enable_battery_limit:() -> Void
+    var disable_battery_limit:() -> Void
     
-    let timer = Timer.publish(every: 10, on: .main, in: .common).autoconnect()
-    
-    init(viewModel:BatteryViewModel=BatteryViewModel()) {
-        self.viewModel = viewModel
-    }
-    
-     
-    func enableBatteryLimit() {}
-    func disableBatteryLimit() {}
+
     func exitApp() {
         NSApplication.shared.terminate(nil)
     }
     
     
     var body: some View {
+        Button(){
+            enable_battery_limit()
+        }label: {
+            Text( is_limiter_enabled ? "✓ Enable 80% battery limit":"Enable 80% battery limit")
+        }.keyboardShortcut("E")
+        Button(){
+            enable_battery_limit()
+        }label: {
+            Text( !is_limiter_enabled ? "✓ Disable 80% battery limit":"Disable 80% battery limit")
+        }.keyboardShortcut("D")
+        Divider()
+        
         VStack{
-            Button(){
-                selected.toggle()
-                viewModel.refreshBatteryInfo()
-                enableBatteryLimit()
-            }label: {
-                Text( selected ? "✓ Enable 80% battery limit":"Enable 80% battery limit")
-            }.keyboardShortcut("E")
-            Button(){
-                selected.toggle()
-                viewModel.refreshBatteryInfo()
-                disableBatteryLimit()
-            }label: {
-                Text( !selected ? "✓ Disable 80% battery limit":"Disable 80% battery limit")
-            }.keyboardShortcut("D")
-            Divider()
-            BatteryInfo(infos:$viewModel.data)
-            Divider()
-            Button(action: exitApp, label: { Text("Exit Battery") }).keyboardShortcut("Q")
-        }.onReceive(timer) { _ in
-                print("timer")
-                viewModel.refreshBatteryInfo()
+            if (!errorRaise)  {
+                Text("Electricity " + electricity)
+                Text("Power Supply " + supply)
+                Text("Charging " +  (charging ? "Yes":"No"))
+            }    else {
+                    Text(errorMsg)
+                }
         }
+        Divider()
+        Button(action: exitApp, label: { Text("Exit Battery") }).keyboardShortcut("Q")
+        
         
     }
 }
