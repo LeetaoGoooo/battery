@@ -40,10 +40,10 @@ class BatteryViewModel: ObservableObject {
         } else {
             supply = "AC Power"
         }
-        if (info.contains("not charging present: true")) {
-            charging = false
-        } else {
+        if (info.contains("; charging;")) {
             charging = true
+        } else {
+            charging = false
         }
         
         let pattern = "(\\d+)%"
